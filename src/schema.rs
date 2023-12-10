@@ -5,6 +5,12 @@ diesel::table! {
         id -> Int4,
         created_at -> Date,
         verified -> Bool,
+        #[max_length = 16]
+        username -> Varchar,
+        #[max_length = 255]
+        password -> Varchar,
+        #[max_length = 255]
+        email -> Varchar,
     }
 }
 

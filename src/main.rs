@@ -7,11 +7,13 @@ The metered API server minimal feature set includes:
 */
 
 use actix_web::{App, HttpServer, web};
-use crate::server::routes::{hello, index, register_user};
 use diesel::pg::PgConnection;
 use diesel::r2d2::{self, ConnectionManager};
 use dotenvy::dotenv;
 use std::env;
+
+use server::web::account::register_user;
+use crate::server::web::account::login_user;
 
 mod server;
 mod schema;
@@ -20,7 +22,8 @@ pub type DbPool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
 fn routes(app: &mut web::ServiceConfig) {
     app
-        .service(register_user);
+        .service(register_user)
+        .service(login_user);
 }
 
 #[actix_web::main]
